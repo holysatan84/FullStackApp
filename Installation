@@ -1,0 +1,16 @@
+Below are the steps to install mongodb :
+
+    sudo apt-get install mongodb-clients
+    Check the version
+        mongo --version
+    Download tar from mongodb website as per your destribution from https://www.mongodb.org/downloads Untar downloaded file.
+        tar -zxvf {mongo-tar-file}.tgz
+    Stop mongod service.
+        sudo service mongod stop
+    Replace binaries from your tar/bin to /usr/bin.
+        Go to cd {your-extracted-folder}/bin
+        sudo mv -f * /usr/bin/
+    Start mongod service.
+        sudo service mongod start
+    Check the version
+        mongo --version
