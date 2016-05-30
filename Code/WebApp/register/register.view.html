@@ -11,15 +11,17 @@
             <input type="text" name="lastName" id="Text1" class="form-control" ng-model="vm.user.lastName" required />
             <span ng-show="form.lastName.$dirty && form.lastName.$error.required" class="help-block">Last name is required</span>
         </div>
-        <div class="form-group" ng-class="{ 'has-error': form.firstName.$dirty && form.firstName.$error.required }">
+        <div class="form-group" ng-class="{ 'has-error': form.phone.$dirty && form.phone.$error.required || form.phone.$error.pattern}">
             <label for="phone">Phone</label>
-            <input type="text" name="phone" id="phone" class="form-control" ng-model="vm.user.phone" required />
+            <input type="text" name="phone" id="phone" data-phone class="form-control" ng-pattern="phoneNumber" ng-model="vm.user.phone" required />            
+        <span ng-show="form.phone.$dirty && form.phone.$error.pattern" class="help-block">Please enter a valid phone number.</span>     
             <span ng-show="form.phone.$dirty && form.phone.$error.required" class="help-block">Phone number is required</span>
         </div>        
-        <div class="form-group" ng-class="{ 'has-error': form.email.$dirty && form.email.$error.required }">
+        <div class="form-group" ng-class="{ 'has-error': form.email.$dirty && form.email.$error.required || form.email.$error.email}">
             <label for="email">Email</label>
-            <input type="text" name="email" id="email" class="form-control" ng-model="vm.user.email" required />
+            <input type="email" name="email" id="email" class="form-control" ng-model="vm.user.email" required />
             <span ng-show="form.email.$dirty && form.email.$error.required" class="help-block">Email is required</span>
+            <span ng-show="form.email.$dirty && form.email.$error.email" class="help-block">Not valid email!</span>            
         </div>
         <div class="form-group" ng-class="{ 'has-error': form.password.$dirty && form.password.$error.required }">
             <label for="password">Password</label>

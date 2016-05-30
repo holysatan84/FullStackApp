@@ -10,7 +10,8 @@
         var vm = this;
 
         vm.register = register;
-
+        $rootScope.phoneNumber = /^\+?\d{2}[- ]?\d{3}[- ]?\d{5}$/;
+        
         function register() {
             vm.dataLoading = true;
             UserService.Create(vm.user)
@@ -24,6 +25,6 @@
                     }
                 });
         }
-    }
+    }ss
 
 })();
