@@ -1,0 +1,48 @@
+Install MongoDB on Ubuntu
+-------------------------------
+1) Run the following command to import the MongoDB public GPG Key,
+
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
+
+2) Create a /etc/apt/sources.list.d/mongodb.list file using the following command,
+
+echo 'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen' | sudo tee /etc/apt/sources.list.d/mongodb.list
+
+3) Now issue the following command to update the repository,
+
+sudo apt-get update
+
+4) Now install the MongoDB by using following command,
+
+apt-get install mongodb-10gen=2.2.3
+
+In the above installation 2.2.3 is currently released mongodb version. Make sure to install latest version always. Now mongodb is installed successfully.
+
+5) Start MongoDB
+
+sudo service mongodb start
+
+6) Stop MongoDB
+
+sudo service mongodb stop
+
+7) Restart MongoDB
+
+sudo service mongodb restart
+
+8) To use mongodb run the following command
+
+mongo
+
+I love Mongo............
+
+
+Database: rechargeapp
+Collection:
+- users
+
+Commands:
+use rechargeapp;
+db;
+db.users.insert({first_name:'Kakesh Narayan',last_name:'pradhan',email_id:'geniuskakesh@gmail.com',phone_no:'9930609468',user_type:'U',pwd:'123456',status:1,created_date:'',last_modified:'',last_login:''});
+db.users.find().pretty();
