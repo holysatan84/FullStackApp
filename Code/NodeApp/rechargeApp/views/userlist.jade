@@ -6,4 +6,6 @@ block content
     ul
         each user, i in userlist
             li
-                a(href="mailto:#{user.email_id}")= user.first_name
+                span: a(href="/user/#{user._id}" text-decoration="none")= user.first_name + " " + user.last_name
+
+    a(href="/newuser")  Add User
