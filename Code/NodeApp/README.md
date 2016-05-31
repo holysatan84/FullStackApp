@@ -12,7 +12,7 @@ $ sudo ln -s /usr/bin/nodejs /usr/bin/node
 ```sh
 $ sudo apt-get install npm
 
-$ sudo apt-get install -g express-generator
+$ sudo npm install -g express-generator
 
 ```
 
