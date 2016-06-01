@@ -24,6 +24,10 @@ router.get('/login/:uname/:pwd', function (req, res) {
         "pwd":req.params.pwd}, 
         {fields: {_id:1}, limit : 1}, 
         function (e, doc) {
+            collection.update(
+                    doc, 
+                    {$set:{"last_login": new Date()}}
+                    );
             res.send(JSON.stringify(doc));
         }
     );
