@@ -21,12 +21,12 @@
              ----------------------------------------------*/
             $timeout(function () {
                 var response;
-                UserService.GetByEmail(email)
-                    .then(function (user) {
-                        if (user !== null && user.password === password) {
+                UserService.Login(email, password)
+                    .then(function (response) {
+                        if (response != "null") {
                             response = { success: true };
                         } else {
-                            response = { success: false, message: 'Email or password is incorrect' };
+                            response = { success: false, message: "Email or password is incorrect" };
                         }
                         callback(response);
                     });

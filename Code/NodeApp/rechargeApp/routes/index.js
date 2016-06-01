@@ -11,15 +11,15 @@ router.get('/userlist', function (req, res, next) {
     var db = req.db;
     var collection = db.get('users');
     collection.find({}, {}, function (e, docs) {
-        res.render('userlist', {'userlist': docs});
+        res.send(JSON.stringify(docs));
     });
 });
 
 /* LOGIN function */
 router.get('/login/:uname/:pwd', function (req, res) {
-    if(req.session.userid){
-        res.redirect('/user/'+req.session.userid)
-    } else {
+    // if(req.session.userid){
+    //     res.redirect('/user/'+req.session.userid)
+    // } else {
         var db = req.db;
         var collection = db.get('users');
         collection.findOne(
@@ -27,15 +27,15 @@ router.get('/login/:uname/:pwd', function (req, res) {
             "pwd":req.params.pwd}, 
             {fields: {_id:1}, limit : 1}, 
             function (e, doc) {
-                collection.update(
-                    doc, 
-                    {$set:{"last_login": new Date()}}
-                    );
-                req.session.userid = doc._id;
+                // collection.update(
+                //     doc, 
+                //     {$set:{"last_login": new Date()}}
+                //     );
+                // req.session.userid = doc._id;
                 res.send(JSON.stringify(doc));
             }
         );
-    }
+    // }
 });
 
 router.get('/logout', function(req, res){

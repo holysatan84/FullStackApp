@@ -15,6 +15,7 @@
         service.Create = Create;
         service.Update = Update;
         service.Delete = Delete;
+        service.Login = Login;
 
         return service;
 
@@ -28,6 +29,10 @@
 
         function GetByEmail(email) {
             return $http.get('/api/users/' + email).then(handleSuccess, handleError('Error getting user by email'));
+        }
+
+        function Login(email, pwd) {
+            return $http.get('http://localhost:3000/login/' + email + '/' + pwd).then(handleSuccess, handleError('Error getting user by email'));
         }
 
         function Create(user) {
