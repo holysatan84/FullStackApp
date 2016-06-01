@@ -15,6 +15,18 @@ router.get('/userlist', function (req, res, next) {
     });
 });
 
+router.get('/login/:uname/:pwd', function (req, res) {
+	var db = req.db;
+	var collection = db.get('users');
+	collection.findOne({"email_id":req.params.uname , 
+			    "pwd":req.params.pwd}, 
+                            {"_id":1}, 
+                            function (e, doc) {
+		                res.send(JSON.stringify(doc));
+                          });
+
+});
+
 /* GET user JSON. */
 router.get('/user/:id', function (req, res, next) {
 //    console.log('user ' + req.params.id);
