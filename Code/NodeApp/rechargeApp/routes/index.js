@@ -17,14 +17,16 @@ router.get('/userlist', function (req, res, next) {
 
 /* LOGIN function */
 router.get('/login/:uname/:pwd', function (req, res) {
-	var db = req.db;
-	var collection = db.get('users');
-	collection.findOne({"email_id":req.params.uname , 
-			    "pwd":req.params.pwd}, 
-                            {fields: {_id:1}, limit : 1}, 
-                            function (e, doc) {
-		                res.send(JSON.stringify(doc));
-                          });
+    var db = req.db;
+    var collection = db.get('users');
+    collection.findOne(
+        {"email_id":req.params.uname , 
+        "pwd":req.params.pwd}, 
+        {fields: {_id:1}, limit : 1}, 
+        function (e, doc) {
+            res.send(JSON.stringify(doc));
+        }
+    );
 
 });
 
@@ -44,8 +46,20 @@ router.get('/newuser', function (req, res) {
     res.render('newuser', {title: 'Add New User'});
 });
 
+router.post('/register', function(req, res) {
+   if(register(req, res)) {
+      res.send("Registered successfully"); 
+   }
+});
+
 router.post('/adduser', function (req, res) {
     //Set the internal db variable
+    if(register(req, res)){ 
+        res.redirect("/userlist");
+    }
+});
+
+function register(req, res) {
     var db = req.db;
 
     //Get the form values
@@ -61,10 +75,9 @@ router.post('/adduser', function (req, res) {
     var createDate = new Date();
     var lastModified = null;
     var lastLogin = null;
-
+    
     //Set our collection
     var collection = db.get('users');
-
     collection.insert({
         "first_name": firstName,
         "last_name": lastName,
@@ -79,12 +92,10 @@ router.post('/adduser', function (req, res) {
     }, function (err, doc) {
         if (err) {
             res.send("A problem occured User could not be created");
-        } else {
-            res.redirect("/userlist");
         }
     });
-
-
-});
+    //If everything ok then return true
+    return true;
+};
 
 module.exports = router;
