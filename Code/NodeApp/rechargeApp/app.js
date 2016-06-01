@@ -28,7 +28,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(function(req, res, next) {	
-	console.log(db);
+	//console.log(db);
 	req.db = db;
 	next();
 });
