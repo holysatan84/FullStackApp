@@ -17,21 +17,31 @@ router.get('/userlist', function (req, res, next) {
 
 /* LOGIN function */
 router.get('/login/:uname/:pwd', function (req, res) {
-    var db = req.db;
-    var collection = db.get('users');
-    collection.findOne(
-        {"email_id":req.params.uname , 
-        "pwd":req.params.pwd}, 
-        {fields: {_id:1}, limit : 1}, 
-        function (e, doc) {
-            collection.update(
+    if(req.session.userid){
+        res.redirect('/user/'+req.session.userid)
+    } else {
+        var db = req.db;
+        var collection = db.get('users');
+        collection.findOne(
+            {"email_id":req.params.uname , 
+            "pwd":req.params.pwd}, 
+            {fields: {_id:1}, limit : 1}, 
+            function (e, doc) {
+                collection.update(
                     doc, 
                     {$set:{"last_login": new Date()}}
                     );
-            res.send(JSON.stringify(doc));
-        }
-    );
+                req.session.userid = doc._id;
+                res.send(JSON.stringify(doc));
+            }
+        );
+    }
+});
 
+router.get('/logout', function(req, res){
+    req.session.destroy(function(err){
+        res.redirect('/');
+    });
 });
 
 /* GET user JSON. */
